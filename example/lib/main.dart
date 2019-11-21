@@ -49,6 +49,7 @@ class _MyAppState extends State<MyApp> {
       onToken: (String token) async {
         print("main onToken: $token");
         setState(() {
+          _pushData = token;
         });
         return true;
       },

@@ -5,6 +5,8 @@ import 'package:flutter/services.dart';
 
 
 typedef Future<dynamic> MessageHandler(String message);
+
+
 class FlutterPluginUmpush {
 
   MethodChannel _channel;
@@ -55,10 +57,14 @@ class FlutterPluginUmpush {
     _onLaunch = onLaunch;
     _onResume = onResume;
     _onToken = onToken;
-    _channel.invokeMethod('configure');
+
+    initUmPush();
   }
 
-
+  ///初始化友盟配置
+  initUmPush(){
+    _channel.invokeMethod('configure');
+  }
 
 
   ///flutter -> native  获取友盟注册成功的token
