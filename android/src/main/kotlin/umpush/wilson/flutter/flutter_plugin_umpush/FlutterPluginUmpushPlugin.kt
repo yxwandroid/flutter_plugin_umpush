@@ -29,30 +29,6 @@ class FlutterPluginUmpushPlugin : MethodCallHandler {
     override fun onMethodCall(call: MethodCall, result: Result) {
         Log.i(tag, "onMethodCall: ${call.method}")
         when {
-            "configure" == call.method -> {
-                //查看缓存是否存在Token，存在在回调
-                val umsgPushMsg = UmengApplication.getPushData(mRegistrar!!.context(), UmengApplication.UMENG_PUSH_MESSAGE)
-                if (umsgPushMsg != null && umsgPushMsg != "") {
-                    mRegistrar!!.activity().runOnUiThread(java.lang.Runnable {
-                        mChannel!!.invokeMethod("onMessage", umsgPushMsg, object : Result {
-                            override fun success(o: Any?) {
-                                //删除数据
-                                UmengApplication.savePushData(mRegistrar!!.context(), UmengApplication.UMENG_PUSH_MESSAGE, null)
-                            }
-
-                            override fun error(s: String, s1: String?, o: Any?) {
-
-                            }
-
-                            override fun notImplemented() {
-
-                            }
-                        })
-                    })
-
-                }
-                result.success(null)
-            }
             "setAlias" == call.method -> {
                 //添加一个获取Token的方法
                 val useName = call.argument<String>("alias")

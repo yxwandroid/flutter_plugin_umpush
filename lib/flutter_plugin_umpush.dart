@@ -58,14 +58,7 @@ class FlutterPluginUmpush {
     _deviceToken = deviceToken;
     _onAlias = onAlias;
 
-    initUmPush();
   }
-
-  ///初始化友盟配置
-  initUmPush(){
-    _channel.invokeMethod('configure');
-  }
-
 
   ///flutter -> native  setAlias   设置别名
   Future<void> setAlias(String token) async {
