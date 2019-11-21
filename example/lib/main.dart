@@ -9,10 +9,11 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _pushData = 'Unknown';
-
+  String _pushData = '别名alias';
+  String _deviceToken = '设备token';
 
   FlutterPluginUmpush _flutterUmpush;
+
   @override
   void initState() {
     super.initState();
@@ -20,15 +21,13 @@ class _MyAppState extends State<MyApp> {
     initPushState();
   }
 
-
-
-
+  ///初始化友盟推送
   Future<void> initPushState() async {
     _flutterUmpush.configure(
       onMessage: (String message) async {
         print("main onMessage: $message");
         setState(() {
-          _pushData = message;
+          _deviceToken = message;
         });
         return true;
       },
@@ -39,14 +38,18 @@ class _MyAppState extends State<MyApp> {
         });
         return true;
       },
-      onResume: (String message) async {
-        print("main onResume: $message");
+
+      ///获取deviceToken
+      deviceToken: (String message) async {
+        print("main deviceToken: $message");
         setState(() {
-          _pushData = message;
+          _deviceToken = message;
         });
         return true;
       },
-      onToken: (String token) async {
+
+      /// 设置别名的回调
+      onAlias: (String token) async {
         print("main onToken: $token");
         setState(() {
           _pushData = token;
@@ -63,17 +66,31 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: const Text('Plugin example app'),
         ),
-        body: Center(
-          child: Text('Running on: $_pushData\n'),
+        body: Container(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              RaisedButton(
+                child: Text("get device token "),
+                onPressed: () {
+                  _flutterUmpush.getDeviceToken();
+                },
+              ),
+              Text('设备deviceToken   $_deviceToken'),
+              Container(
+                height: 100,
+              ),
+              RaisedButton(
+                child: Text("设置别名"),
+                onPressed: () {
+                  _flutterUmpush.setAlias("alias");
+                },
+              ),
+              Text('设置的别名 alias  $_pushData'),
+            ],
+          ),
         ),
-      floatingActionButton: FloatingActionButton(
-        child: Text("333"),
-        onPressed: (){
-          _flutterUmpush.getToken("token");
-        },
       ),
-      ),
-
     );
   }
 }

@@ -60,7 +60,7 @@ public class UmengApplication extends io.flutter.app.FlutterApplication {
     /**
      * flutter回调结果函数
      */
-    public static final MethodChannel.Result FLUTTER_METHOD_CALLBACK = new MethodChannel.Result() {
+    public static final MethodChannel.Result flutterMethodCallback = new MethodChannel.Result() {
         @Override
         public void success(Object o) {
 
@@ -175,28 +175,28 @@ public class UmengApplication extends io.flutter.app.FlutterApplication {
             public void launchApp(Context context, UMessage uMessage) {
                 String umengPushMsg = formatMsg(uMessage);
                 Log.i(TAG, "umengPushMsg: " + umengPushMsg);
-                FlutterPluginUmpushPlugin.Companion.getMChannel().invokeMethod("onMessage", umengPushMsg, FLUTTER_METHOD_CALLBACK);
+                FlutterPluginUmpushPlugin.Companion.getMChannel().invokeMethod("onMessage", umengPushMsg, flutterMethodCallback);
                 super.launchApp(context, uMessage);
             }
 
             public void openUrl(Context context, UMessage uMessage) {
                 String umengPushMsg = formatMsg(uMessage);
                 Log.i(TAG, "umengPushMsg: " + umengPushMsg);
-                FlutterPluginUmpushPlugin.Companion.getMChannel().invokeMethod("onMessage", umengPushMsg, FLUTTER_METHOD_CALLBACK);
+                FlutterPluginUmpushPlugin.Companion.getMChannel().invokeMethod("onMessage", umengPushMsg, flutterMethodCallback);
                 super.openUrl(context, uMessage);
             }
 
             public void openActivity(Context context, UMessage uMessage) {
                 String umengPushMsg = formatMsg(uMessage);
                 Log.i(TAG, "umengPushMsg: " + umengPushMsg);
-                FlutterPluginUmpushPlugin.Companion.getMChannel().invokeMethod("onMessage", umengPushMsg, FLUTTER_METHOD_CALLBACK);
+                FlutterPluginUmpushPlugin.Companion.getMChannel().invokeMethod("onMessage", umengPushMsg, flutterMethodCallback);
                 super.openActivity(context, uMessage);
             }
 
             public void dealWithCustomAction(Context context, UMessage uMessage) {
                 String umengPushMsg = formatMsg(uMessage);
                 Log.i(TAG, "umengPushMsg: " + umengPushMsg);
-                FlutterPluginUmpushPlugin.Companion.getMChannel().invokeMethod("onMessage", umengPushMsg, FLUTTER_METHOD_CALLBACK);
+                FlutterPluginUmpushPlugin.Companion.getMChannel().invokeMethod("onMessage", umengPushMsg, flutterMethodCallback);
                 super.dealWithCustomAction(context, uMessage);
             }
         };
@@ -234,11 +234,11 @@ public class UmengApplication extends io.flutter.app.FlutterApplication {
 
         @Override
         public void onActivityStarted(Activity activity) {
-            Log.d("wilsonActivity","onActivityStarted");
+            Log.d(TAG,"onActivityStarted");
             count =0;
             BadgerUtil.addBadger(activity, count);
             final Activity mActivity = activity;
-            Log.d("wilsonActivity","onActivityCreated");
+            Log.d(TAG,"onActivityCreated");
             NotificationManagerCompat notification = NotificationManagerCompat.from(activity);
             boolean isEnabled = notification.areNotificationsEnabled();
             if (!isEnabled) {
@@ -287,14 +287,14 @@ public class UmengApplication extends io.flutter.app.FlutterApplication {
 
         @Override
         public void onActivityResumed(Activity activity) {
-            Log.d("wilsonActivity","onActivityResumed");
+            Log.d(TAG,"onActivityResumed");
 
             //关闭通知
             PushAgent pushAgent = PushAgent.getInstance(activity);
             pushAgent.disable(new IUmengCallback() {
                 @Override
                 public void onSuccess() {
-                    Log.d("wilsonActivity","关闭通知");
+                    Log.d(TAG,"关闭通知");
 
                 }
                 @Override
@@ -306,12 +306,12 @@ public class UmengApplication extends io.flutter.app.FlutterApplication {
         @Override
         public void onActivityPaused(Activity activity) {
             //开启通知
-            Log.d("wilsonActivity","onActivityPaused");
+            Log.d(TAG,"onActivityPaused");
             PushAgent pushAgent = PushAgent.getInstance(activity);
             pushAgent.enable(new IUmengCallback() {
                 @Override
                 public void onSuccess() {
-                    Log.d("wilsonActivity","开启通知 ");
+                    Log.d(TAG,"开启通知 ");
                 }
                 @Override
                 public void onFailure(String s, String s1) {
@@ -322,17 +322,17 @@ public class UmengApplication extends io.flutter.app.FlutterApplication {
 
         @Override
         public void onActivityStopped(Activity activity) {
-            Log.d("wilsonActivity","onActivityStopped");
+            Log.d(TAG,"onActivityStopped");
         }
 
         @Override
         public void onActivitySaveInstanceState(Activity activity, Bundle bundle) {
-            Log.d("wilsonActivity","onActivitySaveInstanceState");
+            Log.d(TAG,"onActivitySaveInstanceState");
         }
 
         @Override
         public void onActivityDestroyed(Activity activity) {
-            Log.d("wilsonActivity","onActivityDestroyed");
+            Log.d(TAG,"onActivityDestroyed");
         }
     };
 

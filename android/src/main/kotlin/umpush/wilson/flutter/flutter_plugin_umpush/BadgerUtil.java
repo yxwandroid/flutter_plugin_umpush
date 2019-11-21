@@ -26,12 +26,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * BadgerUtil
  *
- * @author 林zero
- * @date 2018/3/29
  */
-
 public class BadgerUtil {
     private static final String TAG = "BadgerUtil";
     private static final int NOTIFY_ID = 10;

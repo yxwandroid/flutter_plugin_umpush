@@ -13,8 +13,8 @@ class FlutterPluginUmpush {
 
   MessageHandler _onMessage;
   MessageHandler _onLaunch;
-  MessageHandler _onResume;
-  MessageHandler _onToken;
+  MessageHandler _deviceToken;
+  MessageHandler _onAlias;
 
 
 
@@ -50,13 +50,13 @@ class FlutterPluginUmpush {
   void configure({
     MessageHandler onMessage,
     MessageHandler onLaunch,
-    MessageHandler onResume,
-    MessageHandler onToken,
+    MessageHandler deviceToken,
+    MessageHandler onAlias,
   }) {
     _onMessage = onMessage;
     _onLaunch = onLaunch;
-    _onResume = onResume;
-    _onToken = onToken;
+    _deviceToken = deviceToken;
+    _onAlias = onAlias;
 
     initUmPush();
   }
@@ -67,11 +67,17 @@ class FlutterPluginUmpush {
   }
 
 
-  ///flutter -> native  获取友盟注册成功的token
-  Future<void> getToken(String token) async {
-    _channel.invokeMethod("getToken", {"token": token});
+  ///flutter -> native  setAlias   设置别名
+  Future<void> setAlias(String token) async {
+    _channel.invokeMethod("setAlias", {"alias": token});
   }
 
+
+
+  ///flutter -> native get devicveToken
+  Future<void> getDeviceToken() async {
+     _channel.invokeMethod("deviceToken");
+  }
 
 
   /// native -> flutter
@@ -80,7 +86,7 @@ class FlutterPluginUmpush {
       case "onToken":
         final String token = call.arguments;
         print('FlutterUmpush onToken: $token');
-        _onToken(token);
+        _onAlias(token);
         return null;
       case "onMessage":
         final String message = call.arguments;
@@ -92,15 +98,15 @@ class FlutterPluginUmpush {
         print('FlutterUmpush onLaunch: $message');
         _onLaunch(call.arguments.cast<String>());
         return null;
-      case "onResume":
+      case "onGetAlias":
         final String message = call.arguments;
-        print('FlutterUmpush onResume: $message');
-        _onResume(call.arguments.cast<String>());
+        print('FlutterUmpush get alias : $message');
+        _onAlias(message);
         return null;
-      case "onGetToken":
+       case "deviceToken":
         final String message = call.arguments;
-        print('FlutterUmpush onGetToken: $message');
-        _onToken(message);
+        print('FlutterUmpush get deviceToken : $message');
+        _deviceToken(message);
         return null;
 
       default:
