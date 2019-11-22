@@ -84,3 +84,39 @@
 
 
 ### IOS 配置步骤 
+
+####  添加appKey  
+
+在 FlutterPluginUmpushPlugin类的 如下方法中替换appkey 
+
+       
+            
+        - (BOOL) application:(UIApplication *)application
+        didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+            NSLog(@"umeng_push_plugin application didFinishLaunchingWithOptions %@", _launchNotification);
+            // Override point for customization after application launch.
+            [UMCommonLogManager setUpUMCommonLogManager];
+            [UMConfigure setLogEnabled:YES];
+            
+            
+            [UMConfigure initWithAppkey:@"5dd658923fc1951fe000006a" channel:@"flutter"];
+           // [MobClick event:@"flutter_ok"];
+            NSLog(@"umeng_push_plugin application init umeng ok");
+          
+            
+            // Push组件基本功能配置
+            UMessageRegisterEntity * entity = [[UMessageRegisterEntity alloc] init];
+            //type是对推送的几个参数的选择，可以选择一个或者多个。默认是三个全部打开，即：声音，弹窗，角标
+            entity.types = UMessageAuthorizationOptionBadge|UMessageAuthorizationOptionSound|UMessageAuthorizationOptionAlert;
+            [UNUserNotificationCenter currentNotificationCenter].delegate=self;
+            [UMessage registerForRemoteNotificationsWithLaunchOptions:launchOptions Entity:entity     completionHandler:^(BOOL granted, NSError * _Nullable error) {
+                if (granted) {
+                }else{
+                }
+            }];
+            
+       
+            _launchNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+            return YES;
+        }
+
