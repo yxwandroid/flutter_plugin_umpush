@@ -17,6 +17,8 @@ A new Flutter plugin.
   s.dependency 'Flutter'
   s.dependency  'UMCCommon'
   s.dependency  'UMCPush'
+  s.dependency 'UMCCommonLog'
+  s.dependency 'UMCErrorCatch'
   s.dependency  'UMCSecurityPlugins'
   s.ios.deployment_target = '8.0'
   # 添加静态库引用配置

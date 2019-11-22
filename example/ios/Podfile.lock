@@ -3,9 +3,14 @@ PODS:
   - flutter_plugin_umpush (0.0.1):
     - Flutter
     - UMCCommon
+    - UMCCommonLog
+    - UMCErrorCatch
     - UMCPush
     - UMCSecurityPlugins
   - UMCCommon (2.1.1)
+  - UMCCommonLog (1.0.0)
+  - UMCErrorCatch (1.0.0):
+    - UMCCommon
   - UMCPush (3.2.4):
     - UMCCommon
   - UMCSecurityPlugins (1.0.6)
@@ -17,6 +22,8 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - UMCCommon
+    - UMCCommonLog
+    - UMCErrorCatch
     - UMCPush
     - UMCSecurityPlugins
 
@@ -28,8 +35,10 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
-  flutter_plugin_umpush: 2a76f40532dfd96feed335c2d3e4a873c071eaa4
+  flutter_plugin_umpush: 88db1b83c27039c622a6532317eec76f5d437b18
   UMCCommon: 971f324a5a99c9d662ae040a815e7e3d7ef8b2a8
+  UMCCommonLog: 05a2d5de21858e3d870551562cff405c1366d244
+  UMCErrorCatch: 51f1b68f920233e90a3fa6d51f0456174507ec78
   UMCPush: 1edd856027dcf905333effb4040ace5d236a7316
   UMCSecurityPlugins: 0831a08f3988f3cea9f1d3a7626cd9bee4fef150
 
